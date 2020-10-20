@@ -56,4 +56,12 @@ public class UserDaoImpl implements UserDao {
             throw new RuntimeException("Error retrieving content ", e);
         }
     }
+
+    @Override
+    public User get(Long id) {
+        logger.info("Trying to get user");
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(User.class, id);
+        }
+    }
 }
