@@ -18,19 +18,19 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
         "com.online.cinema.dao"
 })
 public class ApplicationConfig {
-    private final Environment env;
+    private final Environment enviroment;
 
-    public ApplicationConfig(Environment env) {
-        this.env = env;
+    public ApplicationConfig(Environment enviroment) {
+        this.enviroment = enviroment;
     }
 
     @Bean
     public DataSource getDataSource() {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(env.getProperty("db.driver"));
-        dataSource.setUrl(env.getProperty("db.url"));
-        dataSource.setUsername(env.getProperty("db.username"));
-        dataSource.setPassword(env.getProperty("db.password"));
+        dataSource.setDriverClassName(enviroment.getProperty("db.driver"));
+        dataSource.setUrl(enviroment.getProperty("db.url"));
+        dataSource.setUsername(enviroment.getProperty("db.username"));
+        dataSource.setPassword(enviroment.getProperty("db.password"));
         return dataSource;
     }
 
@@ -39,8 +39,8 @@ public class ApplicationConfig {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setDataSource(getDataSource());
         Properties properties = new Properties();
-        properties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-        properties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+        properties.put("hibernate.show_sql", enviroment.getProperty("hibernate.show_sql"));
+        properties.put("hibernate.hbm2ddl.auto", enviroment.getProperty("hibernate.hbm2ddl.auto"));
         factoryBean.setHibernateProperties(properties);
         factoryBean.setAnnotatedClasses(User.class);
         return factoryBean;
